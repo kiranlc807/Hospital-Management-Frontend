@@ -59,15 +59,14 @@
 // // };
 
 // // export default LoginForm;
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { TextField, Button, Typography, Link } from '@mui/material';
 import "../css/AuthForm.css"; // Import the CSS file for styles
 import GoogleIcon from '@mui/icons-material/Google';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import login from "../assets/undraw_mobile_content_xvgr.svg";
-import signup from "../assets/undraw_love_it_xkc2 (1).svg";
+import { LoginApi,SignupApi,SocialLoginApi} from '../utils/UserApi';
 
 
 const LoginForm = () => {
@@ -76,33 +75,75 @@ const LoginForm = () => {
     const [name, setName] = useState('');
     const [newEmail, setNewEmail] = useState('');
     const [newPassword, setNewPassword] = useState('');
+    const [phNo,setPhNo] = useState(null);
     const [view ,setView] = useState('login');
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-
+    const handleSubmit = async(e) => {
+        if(e==="login"){
+          const res = await LoginApi({email:email,password:password});
+          console.log(res,'login response');
+        }else{
+          const res = await SignupApi({name:name,email:email,contactNumber:phNo,password:password});
+          console.log(res,'Signup response');
+        }
     };
-    console.log(email);
-    console.log(password);
+
+    // const handleSocialLogin = async()=>{
+    //   window.open(googleAuthUrl, '_self');
+    //   const res = await SocialLoginApi();
+    //   console.log(res,"social login");
+    // }
+
+    const handleSocialLogin = () => {
+      // Redirect the user to Google's authentication page
+      window.location.href = 'http://localhost:3000/api/v1/users/auth/google';
+  };
+
+  useEffect(() => {
+    // Function to check if the URL contains a code parameter
+    const hasCodeParameter = () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const userDataParam = urlParams.get('userData');
+        const userData = JSON.parse(userDataParam);
+        console.log(userData);
+        return urlParams.has('code');
+    };
+
+    // Function to handle the response after redirection from the social login page
+    const handleSocialLoginResponse = async () => {
+        if (hasCodeParameter()) {
+            try {
+                // Perform a separate API call to your backend to handle the response
+                const response = await SocialLoginApi();
+                console.log(response); // Handle the response as needed
+            } catch (error) {
+                console.error('Error during social login:', error);
+                // Handle error
+            }
+        }
+    };
+
+    handleSocialLoginResponse();
+}, []);
 
     return (
             <>
             { view === "login" ? (
             <div className="login-container">
             <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center',marginBottom:"10%" }}>Login</Typography>
-            <form onSubmit={handleSubmit} style={{marginBottom:"10px"}}>
+            <form style={{marginBottom:"10px"}}>
                 <div className="input-container">
                     <TextField label="Email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="on" className='input-container' />
                 </div>
                 <div className="input-container">
                     <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='input-container' required />
                 </div>
-                <Button type="submit" variant="contained">Login</Button>
+                <Button type="submit" variant="contained" onClick={()=>handleSubmit("login")}>Login</Button>
             </form>
             <Link onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</Link>
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
-                 <a href="#" className="social-icon">
+                 <a href="#" className="social-icon" onClick={handleSocialLogin}>
                    {/* <i className="fab fa-facebook-f"></i> */}
                    <GoogleIcon/>
                  </a>
@@ -123,7 +164,7 @@ const LoginForm = () => {
             ):( 
             <div className="login-container">
             <Typography variant="h4" className="heading" style={{ display: 'flex', justifyContent: 'center',marginBottom:"10%" }}>Signup</Typography>
-            <form onSubmit={handleSubmit} style={{marginBottom:"10px"}}>
+            <form style={{marginBottom:"10px"}}>
                 <div className="input-container">
                     <TextField label="Name" type="text" value={name} onChange={(e) => setName(e.target.value)} required className='input-container'/>
                 </div>
@@ -131,14 +172,17 @@ const LoginForm = () => {
                     <TextField label="Email" type="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} required className='input-container'/>
                 </div>
                 <div className="input-container">
+                    <TextField label="Contact Number" type="text" value={phNo} onChange={(e) => setPhNo(e.target.value)} required className='input-container'/>
+                </div>
+                <div className="input-container">
                     <TextField label="Password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className='input-container'/>
                 </div>
-                <Button type="submit" variant="contained" className="button">Signup</Button>
+                <Button type="submit" variant="contained" className="button" onClick={()=>handleSubmit("signup")}>Signup</Button>
             </form>
             <Link onClick={()=>setView("login")} className="signup-link">Already have an account? LogIn here.</Link>
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
-                 <a href="#" className="social-icon">
+                 <a href="#" className="social-icon" onClick={handleSocialLogin}>
                    {/* <i className="fab fa-facebook-f"></i> */}
                    <GoogleIcon/>
                  </a>
