@@ -1,64 +1,3 @@
-// // import React, { useState } from 'react';
-// // import "../css/AuthForm.css"; // Import the CSS file for styles
-
-// // const LoginForm = () => {
-// //     const [email, setEmail] = useState('');
-// //     const [password, setPassword] = useState('');
-// //     const [name, setName] = useState('');
-// //     const [newEmail, setNewEmail] = useState('');
-// //     const [newPassword, setNewPassword] = useState('');
-// //     const [view ,setView] = useState('login');
-
-// //     const handleSubmit = (e) => {
-// //         e.preventDefault();
-// //         // Add your form submission logic here
-// //     };
-
-
-// //     return (
-// //             <>
-// //             { view === "login" ? (
-// //             <div className="login-container">
-// //             <h1>Login</h1>
-// //             <form onSubmit={handleSubmit}>
-// //                 <div className="input-container">
-// //                     <label htmlFor="email">Email</label>
-// //                     <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="on" />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="password">Password</label>
-// //                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-// //                 </div>
-// //                 <button type="submit">Login</button>
-// //             </form>
-// //             <a onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</a>
-// //             </div>
-// //             ):( 
-// //             <div className="login-container">
-// //             <h1 className="heading">Signup</h1>
-// //             <form onSubmit={handleSubmit}>
-// //                 <div className="input-container">
-// //                     <label htmlFor="name">Name</label>
-// //                     <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="email">Email</label>
-// //                     <input type="email" id="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} required />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="password">Password</label>
-// //                     <input type="password" id="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-// //                 </div>
-// //                 <button type="submit" className="button">Signup</button>
-// //             </form>
-// //             <a onClick={()=>setView("login")} className="signup-link">Already have an account? LogIn here.</a>
-// //             </div>
-// //             )} 
-// //             </>   
-// //         );
-// // };
-
-// // export default LoginForm;
 import React, { useState,useEffect } from 'react';
 import { TextField, Button, Typography, Link } from '@mui/material';
 import "../css/AuthForm.css"; // Import the CSS file for styles
@@ -87,13 +26,6 @@ const LoginForm = () => {
           console.log(res,'Signup response');
         }
     };
-
-    // const handleSocialLogin = async()=>{
-    //   window.open(googleAuthUrl, '_self');
-    //   const res = await SocialLoginApi();
-    //   console.log(res,"social login");
-    // }
-
     const handleSocialLogin = () => {
       // Redirect the user to Google's authentication page
       window.location.href = 'http://localhost:3000/api/v1/users/auth/google';
@@ -127,7 +59,8 @@ const LoginForm = () => {
 }, []);
 
     return (
-            <>
+            
+            <div className='body'>
             { view === "login" ? (
             <div className="login-container">
             <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center',marginBottom:"10%" }}>Login</Typography>
@@ -138,7 +71,7 @@ const LoginForm = () => {
                 <div className="input-container">
                     <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='input-container' required />
                 </div>
-                <Button type="submit" variant="contained" onClick={()=>handleSubmit("login")}>Login</Button>
+                <Button type="submit" variant="contained" className='button' onClick={()=>handleSubmit("login")}>Login</Button>
             </form>
             <Link onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</Link>
             <p style={{textAlign:"center"}}>or</p>
@@ -177,7 +110,7 @@ const LoginForm = () => {
                 <div className="input-container">
                     <TextField label="Password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className='input-container'/>
                 </div>
-                <Button type="submit" variant="contained" className="button" onClick={()=>handleSubmit("signup")}>Signup</Button>
+                <Button type="submit" variant="contained" className='button'  onClick={()=>handleSubmit("signup")}>Signup</Button>
             </form>
             <Link onClick={()=>setView("login")} className="signup-link">Already have an account? LogIn here.</Link>
             <p style={{textAlign:"center"}}>or</p>
@@ -200,8 +133,9 @@ const LoginForm = () => {
                  </a>
              </div>
             </div>
-            )} 
-            </>   
+            )}
+            </div> 
+              
         );
 };
 

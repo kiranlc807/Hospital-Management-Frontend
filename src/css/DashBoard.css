@@ -1,0 +1,28 @@
+.header-container{
+    display: flex;
+}
+
+.outlet-container{
+    display: flex;
+    /* margin-top: 70px; */
+    justify-content: center;
+    object-fit: contain;
+    /* margin-left: 12%; */
+    /* margin-right: 12%; */
+}
+
+@media screen and (max-width: 600px) {
+    .outlet-container{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+}
+
+/* @media screen and (max-width: 600px) {
+    .outlet-container{
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    
+} */
