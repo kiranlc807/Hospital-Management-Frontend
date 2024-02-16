@@ -7,13 +7,35 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import HomeIcon from "@mui/icons-material/Home";
-import EventIcon from "@mui/icons-material/Event";
 import DoctorIcon from "@mui/icons-material/LocalHospital";
+import { useEffect } from "react";
+import { getHospitals } from "../utils/HospitalApi";
+import { useDispatch } from "react-redux";
+import { setHospitals } from "../utils/store/HospitalSlice";
 import "../css/Header.css";
 
 const Header = () => {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const userDataParam = urlParams.get('userData');
+  const userData = JSON.parse(userDataParam);
+  if(userData){
+      localStorage.setItem("Authorization",userData.token);
+  }
+  const dispatch = useDispatch();
+  useEffect(()=>{
+      const fetchData = async()=>{
+          try{
+              let hospitals = await getHospitals();
+              console.log(hospitals);
+              dispatch(setHospitals(hospitals))
+          }catch(error){
+              console.log("Error",error);
+          }
+      }
+      fetchData();
+  });
 
   const handleProfileMenuOpen = (event) => {
     setProfileAnchorEl(event.currentTarget);
@@ -25,7 +47,7 @@ const Header = () => {
 
   return (
     <div>
-    <AppBar position="static" className="appBar" sx={{backgroundColor:"#ffc107",overflow:"hidden",position:"fixed", marginBottom: "100px"}}>
+    <AppBar position="static" className="appBar" sx={{backgroundColor:"#109CFD",overflow:"hidden",position:"fixed", marginBottom: "100px"}}>
       <Toolbar>
         <Typography variant="h6" className="title">
           <DoctorIcon />

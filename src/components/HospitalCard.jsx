@@ -23,16 +23,15 @@ const useStyles = makeStyles({
   },
   '@media (max-width: 600px)':{
     media:{
-      width:140
+      width:140,
     }
   }
 });
 
-const HospitalCard = ({ title, address, imageUrl }) => {
+const HospitalCard = ({HospitalObj}) => {
   const classes = useStyles();
-  title = "Manipal Hospital, Kottayam";
-  address = "Kottayam, Kerala, India";
-  imageUrl = "https://source.unsplash.com/random";
+  const title = HospitalObj.name;
+  const imageUrl = "https://source.unsplash.com/random";
 
   return (
       <Card className={`${classes.root} hospital-card`}>
@@ -41,7 +40,10 @@ const HospitalCard = ({ title, address, imageUrl }) => {
             {title}
           </Typography>
           <Typography variant="body2" color="textSecondary" component="p">
-            {address}
+            {HospitalObj.address}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            Contact Number : {HospitalObj.contactNumber}
           </Typography>
         </CardContent>
         <CardMedia

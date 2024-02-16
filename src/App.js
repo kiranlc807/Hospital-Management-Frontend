@@ -1,7 +1,7 @@
 import './App.css';
 import { RouterProvider,createBrowserRouter } from 'react-router-dom';
 import AuthForm from './components/Auth';
-import DashboardLayout from './components/DashBoard.js';
+import DashboardLayout from './components/DashBoard';
 import Hospitals from './components/Hospitals';
 
 

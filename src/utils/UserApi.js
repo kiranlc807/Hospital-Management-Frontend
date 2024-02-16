@@ -3,7 +3,7 @@ import { BASE_URL } from "./helper";
 
 export const LoginApi = async(data)=>{
     const res = await axios.post(`${BASE_URL}/api/v1/users/login`,data)
-    console.log("In LogIn",res);
+    console.log("In LogIn",res.data.token);
     localStorage.setItem("Authorization",res.data.token);
     return res;
 }

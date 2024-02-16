@@ -6,6 +6,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { LoginApi,SignupApi,SocialLoginApi} from '../utils/UserApi';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
@@ -17,10 +18,14 @@ const LoginForm = () => {
     const [phNo,setPhNo] = useState(null);
     const [view ,setView] = useState('login');
 
+    const route = useNavigate();
     const handleSubmit = async(e) => {
         if(e==="login"){
           const res = await LoginApi({email:email,password:password});
-          console.log(res,'login response');
+          console.log(res,"rs");
+          if(res.status==200){
+            route('/dashboard/hospital')
+          }
         }else{
           const res = await SignupApi({name:name,email:email,contactNumber:phNo,password:password});
           console.log(res,'Signup response');
@@ -37,7 +42,6 @@ const LoginForm = () => {
         const urlParams = new URLSearchParams(window.location.search);
         const userDataParam = urlParams.get('userData');
         const userData = JSON.parse(userDataParam);
-        console.log(userData);
         return urlParams.has('code');
     };
 

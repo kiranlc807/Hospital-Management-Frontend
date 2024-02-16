@@ -2,19 +2,19 @@ import Header from "./Header"
 import { Outlet } from "react-router-dom";
 import "../css/DashBoard.css"
 import FrontInfo from "./FrontInfo";
+import { Provider } from "react-redux";
+import appStore from "../utils/store/AppStore";
 
 const DashboardLayout = () => {
-    // const [open , setOpen] = useState(false)
     return (
-        <div>
+        <Provider store={appStore}>
             <div className="header-container">
             <Header />
             </div>
-            <FrontInfo/>
-            <div className="outlet-container">.
+            <div className="outlet-container">
             <Outlet/>
             </div>
-        </div>
+        </Provider>
     )
   }
 
