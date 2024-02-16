@@ -3,6 +3,7 @@ import { RouterProvider,createBrowserRouter } from 'react-router-dom';
 import AuthForm from './components/Auth';
 import DashboardLayout from './components/DashBoard';
 import Hospitals from './components/Hospitals';
+import HospitalDetails from './components/HospitalDetails';
 
 
 function App() {
@@ -12,10 +13,12 @@ function App() {
       element:<AuthForm/>,
     },
     {
-      path:"/dashboard",
+      path:"dashboard",
       element:<DashboardLayout/>,
       children:[
-          {path: "hospital", index: true,element: <Hospitals />},
+          {path: "hospital", element: <Hospitals />},
+          {path: "about/:id",element: <HospitalDetails/>},
+          {path: "about/:id",element: <HospitalDetails/>}
       ]
     }
   ])

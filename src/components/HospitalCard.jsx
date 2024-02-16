@@ -4,6 +4,7 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import CardMedia from "@mui/material/CardMedia";
+import { useNavigate } from "react-router-dom";
 import "../css/HospitalCard.css";
 
 const useStyles = makeStyles({
@@ -33,8 +34,13 @@ const HospitalCard = ({HospitalObj}) => {
   const title = HospitalObj.name;
   const imageUrl = "https://source.unsplash.com/random";
 
+  const route = useNavigate();
+  const handleClick=()=>{
+      route(`/dashboard/about/${HospitalObj._id}`)
+  }
+
   return (
-      <Card className={`${classes.root} hospital-card`}>
+      <Card className={`${classes.root} hospital-card`} onClick={handleClick}>
         <CardContent className={classes.content}>
           <Typography gutterBottom variant="h5" component="h2">
             {title}

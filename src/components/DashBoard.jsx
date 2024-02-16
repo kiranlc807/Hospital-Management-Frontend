@@ -1,7 +1,6 @@
 import Header from "./Header"
 import { Outlet } from "react-router-dom";
 import "../css/DashBoard.css"
-import FrontInfo from "./FrontInfo";
 import { Provider } from "react-redux";
 import appStore from "../utils/store/AppStore";
 

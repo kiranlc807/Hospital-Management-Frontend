@@ -15,4 +15,4 @@ function FrontInfo() {
   )
 }
 
-export default FrontInfo
+export default FrontInfo;

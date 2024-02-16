@@ -1,0 +1,100 @@
+/* hospitalDetails.css */
+
+.hospital-details {
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid black; */
+    margin-left: 15%;
+    margin-right: 8%;
+    overflow: hidden;
+    width: 100%;
+    margin-top: 70px;
+  }
+  
+  .left-column {
+    flex: 1;
+    width: 75%;
+    overflow: hidden;
+    /* border: 1px solid black; */
+    padding-left: 20px;
+  }
+  
+  .right-column {
+    flex: 1;
+    width: 25%;
+    height: 100%;
+    overflow: hidden;
+    /* border: 1px solid black; */
+  }
+  
+  .hospital-image {
+    width: 100%;
+    max-width: 200px;
+    margin: auto;
+    height: auto;
+    display: block;
+  }
+  
+  .doctor-list {
+    list-style-type: none;
+    /* padding-left: 8%; */
+  }
+  
+  .doctor-list-item {
+    margin-bottom: 5px;
+  }
+  
+  .hospital-info {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    /* border: 1px solid black; */
+  }
+
+  .department-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-left: 3%;
+    gap: 5%;
+    margin-bottom: 20px; /* Adjust the gap as needed */
+    
+  }
+  
+  .department-list > * {
+    flex: 1 1 200px; /* Set the width of each DepartmentCard */
+    max-width: 200px;
+    margin-bottom: 20px; /* Set the maximum width of each DepartmentCard */
+  }
+
+  .department-div{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 2rem;
+
+  }
+  @media (max-width: 600px) {
+    .hospital-details {
+      margin-left: 5%;
+      margin-right: 5%;
+    }
+  
+    .left-column {
+      width: 100%;
+      padding-left: 0;
+      margin-bottom: 20px;
+    }
+  
+    .right-column {
+      width: 100%;
+    }
+  
+    .department-list {
+      margin-left: 12%;
+      margin-right: 0;
+      gap: 10px;
+    }
+  }
+  

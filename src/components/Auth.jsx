@@ -20,6 +20,7 @@ const LoginForm = () => {
 
     const route = useNavigate();
     const handleSubmit = async(e) => {
+      console.log(email,password,"hello");
         if(e==="login"){
           const res = await LoginApi({email:email,password:password});
           console.log(res,"rs");
@@ -36,31 +37,6 @@ const LoginForm = () => {
       window.location.href = 'http://localhost:3000/api/v1/users/auth/google';
   };
 
-  useEffect(() => {
-    // Function to check if the URL contains a code parameter
-    const hasCodeParameter = () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const userDataParam = urlParams.get('userData');
-        const userData = JSON.parse(userDataParam);
-        return urlParams.has('code');
-    };
-
-    // Function to handle the response after redirection from the social login page
-    const handleSocialLoginResponse = async () => {
-        if (hasCodeParameter()) {
-            try {
-                // Perform a separate API call to your backend to handle the response
-                const response = await SocialLoginApi();
-                console.log(response); // Handle the response as needed
-            } catch (error) {
-                console.error('Error during social login:', error);
-                // Handle error
-            }
-        }
-    };
-
-    handleSocialLoginResponse();
-}, []);
 
     return (
             
@@ -80,20 +56,20 @@ const LoginForm = () => {
             <Link onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</Link>
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
-                 <a href="#" className="social-icon" onClick={handleSocialLogin}>
-                   {/* <i className="fab fa-facebook-f"></i> */}
+                 <a href="#" className="social-icon" onClick={handleSocialLogin}> 
+                    <i className="fab fa-facebook-f"></i>
                    <GoogleIcon/>
                  </a>
-                 <a href="#" className="social-icon">
-                   {/* <i className="fab fa-twitter"></i> */}
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-twitter"></i>
                    <FacebookIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-google"></i> */}
+                   <i className="fab fa-google"></i>
                    <LinkedInIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-linkedin-in"></i> */}
+                   <i className="fab fa-linkedin-in"></i>
                    <GitHubIcon/>
                  </a>
              </div>
@@ -120,19 +96,19 @@ const LoginForm = () => {
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
                  <a href="#" className="social-icon" onClick={handleSocialLogin}>
-                   {/* <i className="fab fa-facebook-f"></i> */}
+                   <i className="fab fa-facebook-f"></i>
                    <GoogleIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-twitter"></i> */}
+                   <i className="fab fa-twitter"></i>
                    <FacebookIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-google"></i> */}
+                   <i className="fab fa-google"></i>
                    <LinkedInIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-linkedin-in"></i> */}
+                   <i className="fab fa-linkedin-in"></i>
                    <GitHubIcon/>
                  </a>
              </div>
