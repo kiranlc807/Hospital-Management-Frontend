@@ -1,0 +1,23 @@
+/* Appointments.css */
+.appointmentsContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 74px;
+    width: 100%;
+  }
+  
+ 
+  @media (max-width: 600px) {
+    .appointmentsContainer {
+      margin-top: 74px; 
+    }
+  }
+  
+  
+  .statisticsRow {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  

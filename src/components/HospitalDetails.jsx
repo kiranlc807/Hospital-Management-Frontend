@@ -1,17 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "../css/HospitalDetails.css";
 import img from "../assets/undraw_medicine_b-1-ol (1).svg"
 import DepartmentCard from "./DepartmentCard";
 import { useParams } from "react-router-dom";
 import { useDispatch,useSelector } from "react-redux";
+import {getDoctors} from "../utils/DoctorApi"
+import {setDoctors} from "../utils/store/DoctorSlice"
 
 const HospitalDetails = () => {
   const HospitalList = useSelector((store)=>store.Hospital.HospitalData);
-  const bookId = useParams();
-  const Hospital = HospitalList.find((hospital)=>hospital._id===bookId.id);
-  console.log(Hospital,"Id");
+  const hospitalId = useParams();
+  const Hospital = HospitalList.find((hospital)=>hospital._id===hospitalId.id);
+  const dispatch = useDispatch();
+  useEffect(()=>{
+    const fetchData = async()=>{
+      const doctors = await getDoctors(hospitalId.id);
+      dispatch(setDoctors(doctors));
+    }
+    fetchData();
+  },[])
   
-
 
   return (
     <div className="hospital-details">

@@ -1,0 +1,53 @@
+/* AppointmentCard.css */
+.card {
+    min-width: 550px;
+    margin: 20px;
+  }
+  
+  .status {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .statusLine {
+    flex-grow: 1;
+    height: 10px;
+    border-radius: 5px;
+    background-color: lightgray;
+    position: relative;
+    margin-right: 10px;
+  }
+  
+  .ball {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  
+  .pendingBall {
+    background-color: yellow;
+    left: 0;
+  }
+  
+  .confirmedBall {
+    background-color: green;
+    right: 0;
+  }
+  
+  .canceledBall {
+    background-color: red;
+    right: 0;
+  }
+  
+  /* Media query for smaller screens */
+  @media (max-width: 600px) {
+    .card {
+      min-width: 300px;
+      margin: 10px;
+    }
+  }
+  
