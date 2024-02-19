@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button, Typography, Link } from '@mui/material';
 import "../css/AuthForm.css"; // Import the CSS file for styles
 import GoogleIcon from '@mui/icons-material/Google';
@@ -20,11 +20,9 @@ const LoginForm = () => {
 
     const route = useNavigate();
     const handleSubmit = async(e) => {
-      console.log(email,password,"hello");
         if(e==="login"){
           const res = await LoginApi({email:email,password:password});
-          console.log(res,"rs");
-          if(res.status==200){
+          if(res.status===200){
             route('/dashboard/hospital')
           }
         }else{
@@ -51,7 +49,7 @@ const LoginForm = () => {
                 <div className="input-container">
                     <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='input-container' required />
                 </div>
-                <Button type="submit" variant="contained" className='button' onClick={()=>handleSubmit("login")}>Login</Button>
+                <Button variant="contained" className='button' onClick={()=>{handleSubmit("login")}}>Login</Button>
             </form>
             <Link onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</Link>
             <p style={{textAlign:"center"}}>or</p>

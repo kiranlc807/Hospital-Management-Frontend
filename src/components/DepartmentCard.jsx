@@ -41,6 +41,7 @@ import React from "react";
 import { Card, CardContent, Typography, Popover } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import DoctorCard from "./DoctorCard";
+import { UseSelector, useSelector } from "react-redux";
 
 const useStyles = makeStyles({
   card: {
@@ -55,13 +56,17 @@ const useStyles = makeStyles({
     "&:hover": {
       boxShadow:
         "0px 26px 58px 0px rgba(0, 0, 0, 0.22), 0px 5px 14px 0px rgba(0, 0, 0, 0.18)",
+      cursor:"pointer"
     },
   },
 });
 
-const DepartmentCard = ({ name }) => {
+const DepartmentCard = ({ _id,name }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const Doctor = useSelector((store)=>store.Doctor.DoctorsList);
+  const DoctorList = Doctor.filter((doctor)=>doctor.department===_id);
+  console.log(DoctorList,"Doctor dep");
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -71,7 +76,6 @@ const DepartmentCard = ({ name }) => {
     setAnchorEl(null);
   };
 
-  const doctors = [];
 
   const open = Boolean(anchorEl);
 
@@ -98,15 +102,10 @@ const DepartmentCard = ({ name }) => {
         }}
       >
         <div>
-          <h2>Doctors</h2>
-          {/* {doctors.map((doctor, index) => (
+          <h2 style={{marginLeft:"10px"}}>{name.split(" ")[0]} Doctors</h2>
+           {DoctorList.map((doctor, index) => (
             <DoctorCard key={index} doctor={doctor} />
-          ))} */}
-          <DoctorCard /> 
-          <DoctorCard />
-          <DoctorCard />
-          <DoctorCard />
-          
+          ))}          
         </div>
       </Popover>
     </div>

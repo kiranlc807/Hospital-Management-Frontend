@@ -13,16 +13,17 @@ import { getHospitals } from "../utils/HospitalApi";
 import { useDispatch } from "react-redux";
 import { setHospitals } from "../utils/store/HospitalSlice";
 import "../css/Header.css";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
   const [profileAnchorEl, setProfileAnchorEl] = useState(null);
-
   const urlParams = new URLSearchParams(window.location.search);
   const userDataParam = urlParams.get('userData');
   const userData = JSON.parse(userDataParam);
   if(userData){
       localStorage.setItem("Authorization",userData.token);
   }
+  const route = useNavigate();
   const dispatch = useDispatch();
   useEffect(()=>{
       const fetchData = async()=>{
@@ -41,9 +42,22 @@ const Header = () => {
     setProfileAnchorEl(event.currentTarget);
   };
 
-  const handleProfileMenuClose = () => {
+  const handleProfileMenuClose = (data) => {
+    if(data==="logout"){
+      localStorage.removeItem("Authorization");
+      route("/");
+    }
     setProfileAnchorEl(null);
   };
+
+  
+  const handleHomeRoute = () =>{
+      route("/dashboard/hospital")
+  }
+
+  const handleAppointments = ()=>{
+          route("/dashboard/appointment");
+  }
 
   return (
     <div>
@@ -55,12 +69,12 @@ const Header = () => {
         </Typography>
         <div className="buttonGroup">
             <div className="button-Home">
-                <Button color="inherit" className="button">
+                <Button color="inherit" className="button" onClick={handleHomeRoute}>
                     Home
                 </Button>
             </div>
             <div className="button-Appointment">
-                <Button color="inherit" className="button">
+                <Button color="inherit" className="button" onClick={handleAppointments}>
                     Appointments
                 </Button>
             </div>
@@ -81,8 +95,8 @@ const Header = () => {
             open={Boolean(profileAnchorEl)}
             onClose={handleProfileMenuClose}
           >
-            <MenuItem onClick={handleProfileMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleProfileMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={()=>handleProfileMenuClose("profile")}>Profile</MenuItem>
+            <MenuItem onClick={()=>handleProfileMenuClose("logout")}>Logout</MenuItem>
           </Menu>
         </div>
       </Toolbar>
