@@ -1,64 +1,3 @@
-// // import React, { useState } from 'react';
-// // import "../css/AuthForm.css"; // Import the CSS file for styles
-
-// // const LoginForm = () => {
-// //     const [email, setEmail] = useState('');
-// //     const [password, setPassword] = useState('');
-// //     const [name, setName] = useState('');
-// //     const [newEmail, setNewEmail] = useState('');
-// //     const [newPassword, setNewPassword] = useState('');
-// //     const [view ,setView] = useState('login');
-
-// //     const handleSubmit = (e) => {
-// //         e.preventDefault();
-// //         // Add your form submission logic here
-// //     };
-
-
-// //     return (
-// //             <>
-// //             { view === "login" ? (
-// //             <div className="login-container">
-// //             <h1>Login</h1>
-// //             <form onSubmit={handleSubmit}>
-// //                 <div className="input-container">
-// //                     <label htmlFor="email">Email</label>
-// //                     <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="on" />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="password">Password</label>
-// //                     <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-// //                 </div>
-// //                 <button type="submit">Login</button>
-// //             </form>
-// //             <a onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</a>
-// //             </div>
-// //             ):( 
-// //             <div className="login-container">
-// //             <h1 className="heading">Signup</h1>
-// //             <form onSubmit={handleSubmit}>
-// //                 <div className="input-container">
-// //                     <label htmlFor="name">Name</label>
-// //                     <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="email">Email</label>
-// //                     <input type="email" id="email" value={newEmail} onChange={(e) => setNewEmail(e.target.value)} required />
-// //                 </div>
-// //                 <div className="input-container">
-// //                     <label htmlFor="password">Password</label>
-// //                     <input type="password" id="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-// //                 </div>
-// //                 <button type="submit" className="button">Signup</button>
-// //             </form>
-// //             <a onClick={()=>setView("login")} className="signup-link">Already have an account? LogIn here.</a>
-// //             </div>
-// //             )} 
-// //             </>   
-// //         );
-// // };
-
-// // export default LoginForm;
 import React, { useState,useEffect } from 'react';
 import { TextField, Button, Typography, Link } from '@mui/material';
 import "../css/AuthForm.css"; // Import the CSS file for styles
@@ -67,6 +6,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import { LoginApi,SignupApi,SocialLoginApi} from '../utils/UserApi';
+import { useNavigate } from "react-router-dom";
 
 
 const LoginForm = () => {
@@ -78,56 +18,29 @@ const LoginForm = () => {
     const [phNo,setPhNo] = useState(null);
     const [view ,setView] = useState('login');
 
+    const route = useNavigate();
     const handleSubmit = async(e) => {
+      console.log(email,password,"hello");
         if(e==="login"){
           const res = await LoginApi({email:email,password:password});
-          console.log(res,'login response');
+          console.log(res,"rs");
+          if(res.status==200){
+            route('/dashboard/hospital')
+          }
         }else{
           const res = await SignupApi({name:name,email:email,contactNumber:phNo,password:password});
           console.log(res,'Signup response');
         }
     };
-
-    // const handleSocialLogin = async()=>{
-    //   window.open(googleAuthUrl, '_self');
-    //   const res = await SocialLoginApi();
-    //   console.log(res,"social login");
-    // }
-
     const handleSocialLogin = () => {
       // Redirect the user to Google's authentication page
       window.location.href = 'http://localhost:3000/api/v1/users/auth/google';
   };
 
-  useEffect(() => {
-    // Function to check if the URL contains a code parameter
-    const hasCodeParameter = () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const userDataParam = urlParams.get('userData');
-        const userData = JSON.parse(userDataParam);
-        console.log(userData);
-        return urlParams.has('code');
-    };
-
-    // Function to handle the response after redirection from the social login page
-    const handleSocialLoginResponse = async () => {
-        if (hasCodeParameter()) {
-            try {
-                // Perform a separate API call to your backend to handle the response
-                const response = await SocialLoginApi();
-                console.log(response); // Handle the response as needed
-            } catch (error) {
-                console.error('Error during social login:', error);
-                // Handle error
-            }
-        }
-    };
-
-    handleSocialLoginResponse();
-}, []);
 
     return (
-            <>
+            
+            <div className='body'>
             { view === "login" ? (
             <div className="login-container">
             <Typography variant="h4" style={{ display: 'flex', justifyContent: 'center',marginBottom:"10%" }}>Login</Typography>
@@ -138,25 +51,25 @@ const LoginForm = () => {
                 <div className="input-container">
                     <TextField label="Password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} className='input-container' required />
                 </div>
-                <Button type="submit" variant="contained" onClick={()=>handleSubmit("login")}>Login</Button>
+                <Button type="submit" variant="contained" className='button' onClick={()=>handleSubmit("login")}>Login</Button>
             </form>
             <Link onClick={()=>setView("signup")} className="signup-link">Don't have an account? Sign up here.</Link>
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
-                 <a href="#" className="social-icon" onClick={handleSocialLogin}>
-                   {/* <i className="fab fa-facebook-f"></i> */}
+                 <a href="#" className="social-icon" onClick={handleSocialLogin}> 
+                    <i className="fab fa-facebook-f"></i>
                    <GoogleIcon/>
                  </a>
-                 <a href="#" className="social-icon">
-                   {/* <i className="fab fa-twitter"></i> */}
+                  <a href="#" className="social-icon">
+                    <i className="fab fa-twitter"></i>
                    <FacebookIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-google"></i> */}
+                   <i className="fab fa-google"></i>
                    <LinkedInIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-linkedin-in"></i> */}
+                   <i className="fab fa-linkedin-in"></i>
                    <GitHubIcon/>
                  </a>
              </div>
@@ -177,31 +90,32 @@ const LoginForm = () => {
                 <div className="input-container">
                     <TextField label="Password" type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required className='input-container'/>
                 </div>
-                <Button type="submit" variant="contained" className="button" onClick={()=>handleSubmit("signup")}>Signup</Button>
+                <Button type="submit" variant="contained" className='button'  onClick={()=>handleSubmit("signup")}>Signup</Button>
             </form>
             <Link onClick={()=>setView("login")} className="signup-link">Already have an account? LogIn here.</Link>
             <p style={{textAlign:"center"}}>or</p>
             <div className="social-media">
                  <a href="#" className="social-icon" onClick={handleSocialLogin}>
-                   {/* <i className="fab fa-facebook-f"></i> */}
+                   <i className="fab fa-facebook-f"></i>
                    <GoogleIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-twitter"></i> */}
+                   <i className="fab fa-twitter"></i>
                    <FacebookIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-google"></i> */}
+                   <i className="fab fa-google"></i>
                    <LinkedInIcon/>
                  </a>
                  <a href="#" className="social-icon">
-                   {/* <i className="fab fa-linkedin-in"></i> */}
+                   <i className="fab fa-linkedin-in"></i>
                    <GitHubIcon/>
                  </a>
              </div>
             </div>
-            )} 
-            </>   
+            )}
+            </div> 
+              
         );
 };
 

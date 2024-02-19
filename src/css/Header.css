@@ -1,0 +1,99 @@
+/* .appBar {
+    background-color: #ffc107;
+  }
+  
+  .title {
+    flex-grow: 0.9;
+    display: flex;
+    align-items: center;
+  }
+  
+  .doctorName {
+    margin-left: 5px;
+    font-weight: bold;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    float: right;
+    gap: 8%;
+  }
+  .button{
+    size: small;
+  }
+  
+  @media (max-width: 600px) {
+    .buttonGroup {
+      width: 100%;
+      align-items: center;
+      gap:0
+    }
+  } */
+
+/* Header.css */
+
+.appBar {
+  background-color: #ffc107;
+}
+
+.title {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.doctorName {
+  margin-left: 5px;
+  font-weight: bold;
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.button {
+  margin-left: 10px;
+}
+
+@media (max-width: 600px) {
+  .buttonGroup {
+    justify-content: flex-start;
+    width: 100%;
+  }
+}
+@media (max-width: 472px) {
+  .buttonGroup {
+    justify-content: flex-start;
+    width: 100%;
+  }
+  .buttonGroup div .button {
+    font-size: 0.6rem;
+    border: none;
+    padding: 0;
+  }
+  .buttonGroup .button-Home .button {
+    font-size: 0.6rem;
+    border: none;
+    padding: 0;
+  }
+  .MuiToolbar-root {
+    padding: 0;
+    margin: 0;
+  }
+}
+@media (max-width: 370px) {
+  .MuiToolbar-root span {
+    padding: 0;
+    margin: 0;
+    font-size: 1rem;
+  }
+  .MuiToolbar-root {
+    padding: 0;
+    margin-left: -0.4rem;
+    font-size: 0.9rem;
+  }
+}
