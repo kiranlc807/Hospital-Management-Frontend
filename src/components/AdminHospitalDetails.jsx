@@ -50,7 +50,7 @@ const Departments = () => {
       <AddDepartmentForm open={open} handleClose={() => setOpen(false)} handleSave={handleSaveDepartment} />
       <div className="department-list">
         {DepartmentList.map((department) => (
-          <DepartmentCard key={department._id} {...department} />
+          <DepartmentCard key={department._id} departmentObj={department} hospitalId={id} />
         ))}
       </div>
     </div>

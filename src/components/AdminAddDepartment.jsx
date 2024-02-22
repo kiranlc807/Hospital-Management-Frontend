@@ -22,6 +22,7 @@ const AddDepartmentForm = ({ open, handleClose, handleSave }) => {
           label="Department Name"
           type="text"
           fullWidth
+          required
           value={departmentName}
           onChange={(e) => setDepartmentName(e.target.value)}
         />
@@ -33,6 +34,7 @@ const AddDepartmentForm = ({ open, handleClose, handleSave }) => {
           fullWidth
           multiline
           rows={4}
+          required
           value={description}
           onChange={(e) => setDescription(e.target.value)}
         />

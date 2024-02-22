@@ -16,6 +16,7 @@ const useStyles = makeStyles({
   details: {
     flex: "1",
     marginRight: "10px",
+    width:"50%"
   },
   availability: {
     display: "flex",
@@ -41,21 +42,10 @@ const useStyles = makeStyles({
   },
 });
 
-const DoctorCard = ({ doctor }) => {
+const DoctorCard = ({ doctor,hospitalId }) => {
   const classes = useStyles();
   const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   const [snackbarMessage, setSnackbarMessage] = React.useState("");
-
-//   const handleCreateAppointment = async () => {
-//     const res = await CreateAppointment(doctor._id);
-//     if (res.status === "Pending") {
-//       setSnackbarMessage("Appointment successfully created!");
-//       setSnackbarOpen(true);
-//     } else {
-//       setSnackbarMessage("Failed to create appointment.");
-//       setSnackbarOpen(true);
-//     }
-//   };
 
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);

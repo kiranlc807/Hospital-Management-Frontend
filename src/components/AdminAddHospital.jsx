@@ -24,6 +24,7 @@ const AddHospitalForm = ({ onSave, open, handleClose }) => {
           label="Hospital Name"
           type="text"
           fullWidth
+          required
           value={hospitalName}
           onChange={(e) => setHospitalName(e.target.value)}
         />
@@ -35,6 +36,7 @@ const AddHospitalForm = ({ onSave, open, handleClose }) => {
           fullWidth
           multiline
           rows={3}
+          required
           value={address}
           onChange={(e) => setAddress(e.target.value)}
         />
@@ -44,6 +46,7 @@ const AddHospitalForm = ({ onSave, open, handleClose }) => {
           label="Contact Number"
           type="text"
           fullWidth
+          required
           value={contactNumber}
           onChange={(e) => setContactNumber(e.target.value)}
         />

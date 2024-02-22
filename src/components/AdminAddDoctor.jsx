@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from "@mui/material";
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, Chip } from "@mui/material";
 
 const AddDoctor = ({ open, handleClose, handleSave }) => {
   const [doctorData, setDoctorData] = useState({
     name: "",
     qualification: "",
-    availability: ""
+    availability: [],
+    tempAvailability: "" // Temporary state to hold availability input
   });
 
   const handleChange = (event) => {
@@ -16,12 +17,45 @@ const AddDoctor = ({ open, handleClose, handleSave }) => {
     });
   };
 
+  const handleAvailabilityChange = (event) => {
+    setDoctorData({
+      ...doctorData,
+      tempAvailability: event.target.value
+    });
+  };
+
+  const handleAddAvailability = () => {
+    if (doctorData.tempAvailability.trim() !== "") {
+      setDoctorData({
+        ...doctorData,
+        availability: [...doctorData.availability, doctorData.tempAvailability],
+        tempAvailability: "" // Reset tempAvailability
+      });
+    }
+  };
+
+  const handleRemoveAvailability = (index) => {
+    const updatedAvailability = [...doctorData.availability];
+    updatedAvailability.splice(index, 1);
+    setDoctorData({
+      ...doctorData,
+      availability: updatedAvailability
+    });
+  };
+
   const handleSaveDoctor = () => {
+    // Ensure tempAvailability is added to availability array if not empty
+    if (doctorData.tempAvailability.trim() !== "") {
+      handleAddAvailability();
+    }
+    // Pass doctorData to the handleSave function
     handleSave(doctorData);
+    // Reset doctorData state
     setDoctorData({
       name: "",
       qualification: "",
-      availability: ""
+      availability: [],
+      tempAvailability: ""
     });
   };
 
@@ -36,6 +70,7 @@ const AddDoctor = ({ open, handleClose, handleSave }) => {
           value={doctorData.name}
           onChange={handleChange}
           fullWidth
+          required
           margin="normal"
         />
         <TextField
@@ -45,17 +80,29 @@ const AddDoctor = ({ open, handleClose, handleSave }) => {
           value={doctorData.qualification}
           onChange={handleChange}
           fullWidth
+          required
           margin="normal"
         />
-        <TextField
-          label="Availability"
-          variant="outlined"
-          name="availability"
-          value={doctorData.availability}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-        />
+        <div style={{ marginBottom: "1rem" }}>
+          <TextField
+            label="Availability"
+            variant="outlined"
+            value={doctorData.tempAvailability}
+            onChange={handleAvailabilityChange}
+            margin="dense"
+          />
+          <Button variant="outlined" onClick={handleAddAvailability} style={{ marginLeft: "0.5rem",marginTop:"1rem" }}>
+            Add
+          </Button>
+        </div>
+        {doctorData.availability.map((slot, index) => (
+          <Chip
+            key={index}
+            label={slot}
+            onDelete={() => handleRemoveAvailability(index)}
+            style={{ marginRight: "0.5rem", marginBottom: "0.5rem" }}
+          />
+        ))}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClose}>Cancel</Button>
@@ -66,3 +113,4 @@ const AddDoctor = ({ open, handleClose, handleSave }) => {
 };
 
 export default AddDoctor;
+
