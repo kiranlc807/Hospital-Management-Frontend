@@ -9,7 +9,7 @@ import { LoginApi,SignupApi,SocialLoginApi} from '../utils/UserApi';
 import { useNavigate } from "react-router-dom";
 
 
-const LoginForm = () => {
+const LoginForm = ({onLogin}) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
@@ -23,6 +23,7 @@ const LoginForm = () => {
         if(e==="login"){
           const res = await LoginApi({email:email,password:password});
           if(res.status===200){
+            onLogin();
             route('/dashboard/hospital')
           }
         }else{
@@ -32,6 +33,7 @@ const LoginForm = () => {
     };
     const handleSocialLogin = () => {
       // Redirect the user to Google's authentication page
+      onLogin();
       window.location.href = 'http://localhost:3000/api/v1/users/auth/google';
   };
 
