@@ -43,7 +43,10 @@ import Appointments from './components/Appointments';
 import AdminLogin from "./components/AdminLogin";
 import AdminDashboard from "./components/AdminDashboard";
 import AdminHospitals from './components/AdminHospitals';
-import AdminDepartment from "./components/AdminHospitalDetails"
+import AdminDepartment from "./components/AdminHospitalDetails";
+import DoctorDash from "./components/DoctorDash";
+import DoctorAppointments from "./components/DoctorAppointment";
+import AppointmentsPage from './components/AppointmentGraph';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -80,6 +83,14 @@ console.log(isAuthenticated,"Hiii after update");
       children:[
         {path: "hospital",index: true, element: <AdminHospitals/>},
         {path: "department/:id",element:<AdminDepartment/>}
+      ]
+    },
+    {
+      path:"/doctor/:id",
+      element:<DoctorDash/>,
+      children:[
+        {path: "app",index:true,element:<DoctorAppointments/>},
+        {path:"graph",element:<AppointmentsPage/>}
       ]
     }
   ]);
