@@ -1,0 +1,36 @@
+.card {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 16px; /* Adjust as needed */
+    padding: 16px; /* Adjust as needed */
+  }
+  
+  .content {
+    flex: 1;
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center; /* Align buttons and text vertically */
+    margin-top: 16px;
+    gap:10px /* Adjust as needed */
+  }
+  
+  .button {
+    margin-left: 8px; /* Adjust as needed */
+  }
+  
+  /* Media Query for screens smaller than 600px */
+  @media (max-width: 600px) {
+    .button {
+      margin-left: 0; /* Reset margin to align buttons vertically */
+      margin-top: 8px; /* Add margin between buttons */
+    }
+  }
+  
+  /* Green color for Confirm button */
+  .confirmButton {
+    background-color: green;
+    color: white;
+  }

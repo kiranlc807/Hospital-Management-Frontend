@@ -26,3 +26,30 @@ export const GetAllAppointment = async ()=>{
     const res = await axios.get(`${BASE_URL}/api/v1/appointment/`,config);
     return res.data.data;
 }
+
+export const GetAllAppointmentByDoctor = async (doctorId)=>{
+    console.log(doctorId,"iddddd");
+    // const token = localStorage.getItem('Authorization');
+
+    // const config = {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //         'Content-Type': 'application/json',
+    //     },
+    // };
+    const res = await axios.get(`${BASE_URL}/api/v1/appointment/doctor/${doctorId}`);
+    return res.data.data;
+}
+
+export const updateAppointment = async (data)=>{
+    // const token = localStorage.getItem('Authorization');
+
+    // const config = {
+    //     headers: {
+    //         Authorization: `Bearer ${token}`,
+    //         'Content-Type': 'application/json',
+    //     },
+    // };
+    const res = await axios.put(`${BASE_URL}/api/v1/appointment/doctor/`,data);
+    return res.data.data;
+}
